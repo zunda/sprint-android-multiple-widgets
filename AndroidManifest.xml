@@ -11,6 +11,14 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<service android:name=".SprintMultipleWidgetsService" android:process=":toastManager" />
+		<service android:name=".SprintMultipleWidgetsService"
+			android:process=":toastManager" />
+		<receiver android:name="SprintMultipleWidgetAppWidgetProvider">
+			<intent-filter>
+				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+			</intent-filter>
+			<meta-data android:name="android.appwidget.provider"
+				android:resource="@xml/multiple_appwidget_info" />
+		</receiver>
 	</application>
 </manifest>
