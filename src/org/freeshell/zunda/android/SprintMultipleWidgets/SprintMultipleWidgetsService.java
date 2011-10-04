@@ -10,7 +10,6 @@ import android.widget.Toast;
 public class SprintMultipleWidgetsService extends Service {
 	private final String LogTag = "SprintMultipleWidgetsService";
 
-
 	@Override
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
@@ -21,14 +20,13 @@ public class SprintMultipleWidgetsService extends Service {
 	public void onStart(Intent intent, int startId) {
 		Log.v(LogTag, "onStart()");
 
-		if (intent == null) {
-			stopSelf();
+		if (intent == null)
 			return;
-		}
 
 		Bundle extras = intent.getExtras();
 		if (extras != null) {
-			Toast.makeText(getApplicationContext(), extras.getString("MSG"), Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), extras.getString("MSG"),
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 }
