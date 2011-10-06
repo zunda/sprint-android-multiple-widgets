@@ -13,11 +13,15 @@ public class SprintMultipleWidgetAppWidgetProvider extends AppWidgetProvider {
 			int[] appWidgetIds) {
 		Log.v(LogTag, "onUpdate()");
 
+		final int nWidgets = appWidgetIds.length;
+
 		RemoteViews widget = new RemoteViews(context.getPackageName(),
 				R.layout.appwidget);
-		widget.setTextViewText(R.id.textView, "Hello");
 
-		appWidgetManager.updateAppWidget(appWidgetIds[0], widget);
+		for (int i = 0; i < nWidgets; i++) {
+			widget.setTextViewText(R.id.textView, String.format("%d", i));
+			appWidgetManager.updateAppWidget(appWidgetIds[i], widget);
+		}
 
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 	}
