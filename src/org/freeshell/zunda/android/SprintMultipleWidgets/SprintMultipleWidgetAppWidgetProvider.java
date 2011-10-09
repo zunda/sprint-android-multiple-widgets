@@ -19,16 +19,17 @@ public class SprintMultipleWidgetAppWidgetProvider extends AppWidgetProvider {
 
 		for (int i = 0; i < nWidgets; i++) {
 			int appWidgetId = appWidgetIds[i];
+			String info = "i:" + i + " appWidgetId:" + appWidgetId;
 
-			Log.v(LogTag, "i:" + i + " appWidgetId:" + appWidgetId);
-
+			Log.v(LogTag, info);
 			Intent intent = new Intent(context, SprintMultipleWidgetsService.class);
-			intent.putExtra("MSG", "i:" + i + " appWidgetId:" + appWidgetId);
+			intent.putExtra("MSG", info);
 			PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, 0);
 
 			RemoteViews widget = new RemoteViews(context.getPackageName(),
 					R.layout.appwidget);
 			widget.setOnClickPendingIntent(R.id.textView, pendingIntent);
+			widget.setTextViewText(R.id.textView, String.format("%d %d", i, appWidgetId));
 
 			appWidgetManager.updateAppWidget(appWidgetId, widget);
 		}
