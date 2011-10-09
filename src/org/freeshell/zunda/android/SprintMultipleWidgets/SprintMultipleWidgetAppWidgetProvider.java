@@ -1,8 +1,10 @@
 package org.freeshell.zunda.android.SprintMultipleWidgets;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -15,12 +17,20 @@ public class SprintMultipleWidgetAppWidgetProvider extends AppWidgetProvider {
 
 		final int nWidgets = appWidgetIds.length;
 
-		RemoteViews widget = new RemoteViews(context.getPackageName(),
-				R.layout.appwidget);
-
 		for (int i = 0; i < nWidgets; i++) {
-			widget.setTextViewText(R.id.textView, String.format("%d", i));
-			appWidgetManager.updateAppWidget(appWidgetIds[i], widget);
+			int appWidgetId = appWidgetIds[i];
+
+			Log.v(LogTag, "i:" + i + " appWidgetId:" + appWidgetId);
+
+			Intent intent = new Intent(context, SprintMultipleWidgetsService.class);
+			intent.putExtra("MSG", "i:" + i + " appWidgetId:" + appWidgetId);
+			PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, 0);
+
+			RemoteViews widget = new RemoteViews(context.getPackageName(),
+					R.layout.appwidget);
+			widget.setOnClickPendingIntent(R.id.textView, pendingIntent);
+
+			appWidgetManager.updateAppWidget(appWidgetId, widget);
 		}
 
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
