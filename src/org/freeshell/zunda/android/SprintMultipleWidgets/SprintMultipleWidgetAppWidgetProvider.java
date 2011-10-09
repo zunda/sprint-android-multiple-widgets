@@ -24,7 +24,7 @@ public class SprintMultipleWidgetAppWidgetProvider extends AppWidgetProvider {
 			Log.v(LogTag, info);
 			Intent intent = new Intent(context, SprintMultipleWidgetsService.class);
 			intent.putExtra("MSG", info);
-			PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, 0);
+			PendingIntent pendingIntent = PendingIntent.getService(context, appWidgetId, intent, 0);
 
 			RemoteViews widget = new RemoteViews(context.getPackageName(),
 					R.layout.appwidget);
